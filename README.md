@@ -77,30 +77,89 @@ project: REACT-streams
 		add file `.eslintrc` to root directory
 		npm run lint
 
-## ********************** Extend ESLint configuration ****************************** (look up) ##
+## ********************** *** preparing project *** ****************************** (look up) ##
 
-
-
-
-
-
-
-
-
-
-	7. Edit `src/components/App.js`:
-		## import
+	8. Create Components:
+		- `src/components/streams/StreamList`
+		- `src/components/streams/StreamCreate`
+		- `src/components/streams/StreamEdit`
+		- `src/components/streams/StreamShow`
+		- `src/components/streams/StreamDelete`
+			import React from "react";
+			const StreamCreate = () => {
+			  return <div>StreamCreate</div>;
+			};
+			export default StreamCreate;
+	
+	9. 	Edit `src/components/App.js`:
+		##import Components:
+		import StreamCreate from "./streams/StreamCreate";
+		import StreamDelete from "./streams/StreamDelete";
+		import StreamEdit from "./streams/StreamEdit";
+		import StreamList from "./streams/StreamList";
+		import StreamShow from "./streams/StreamShow";
+	
+	10. Edit `src/components/App.js`:
+		##Create paths to Components
 		import { HashRouter, Route } from 'react-router-dom';
 		...
-		return(
+		  return (
 			<div className="ui container">
-				<HashRouter>
-					<div>
-						<Route path="/" exact  component={} /> 		// шаблон. Пока без ссылок
-						<Route path="/" component={} />
-					</div>
-				</HashRouter>
+			  <HashRouter>
+				<div>
+				  <Route path="/" exact component={StreamList} />
+				  <Route path="/streams/new" exact component={StreamCreate} />
+				  <Route path="/streams/edit" exact component={StreamEdit} />
+				  <Route path="/streams/delete" exact component={StreamDelete} />
+				  <Route path="/streams/show" exact component={StreamShow} />
+				</div>
+			  </HashRouter>
 			</div>
-		)
+		  );
+		  
+	11. Create always visible Components
+		## Component is not listed inside HashComponent - 100% is visible always
+		`src/components/Header`:
+		import React from "react";
+		const Header = () => {
+		  return (
+			<div className="ui secondary pointing menu">
+			  <div className="right menu">Header</div>
+			</div>
+		  );
+		};
+		export default Header;
+
+	12. Edit `src/components/App.js`:
+		##import Components:
+		import Header from "./Header";
+		...
+		  return (
+			<div className="ui container">
+			  <Header />
+			  <HashRouter>
+			  ...
+			  
+	13. Edit `src/components/Header`:
+		## add links to menu
+		import { Link } from "react-router-dom";
+		...
+		<Link to="/" className="item">Streamer</Link>
+		<div className="right menu">
+			<Link to="/" className="item">All streams</Link>
+		</div>
+
+	14. You should not use <Link> outside a <Router>
+		## как использовать <Link> снаружи <Router> ?
+		Edit `src/components/App.js`:
+		## переносим все внутрь <Router>
+		  return (
+			<div className="ui container">
+			  <HashRouter>
+				<div>
+				  <Header />
+				  
+	
+
 
 
